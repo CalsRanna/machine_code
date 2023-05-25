@@ -13,7 +13,7 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
     ProcessResult result = Process.runSync('cat', ['/proc/cpuinfo']);
     String cpu =
         result.stdout.toString().trim().split('\n')[4].split(':')[1].trim();
-    return 'CPU@$cpu';
+    return 'cpu@$cpu';
   }
 
   @override
@@ -23,14 +23,17 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
       ['-no', 'serial', '/dev/sda'],
     );
     String disk = result.stdout.toString().trim();
-    return 'Volume UUID@$disk';
+    return 'volume uuid@$disk';
   }
 
   @override
   String getMacAddress() {
-    ProcessResult result = Process.runSync('ifconfig', ['eth0']);
-    String mac = result.stdout.toString().split('\n')[0].split('HWaddr ')[1];
-    return 'MAC@$mac';
+    ProcessResult result = Process.runSync('ip', ['link', 'show']);
+    String mac = RegExp(r'link/ether ([\w:]+) ')
+            .firstMatch(result.stdout.toString())
+            ?.group(1) ??
+        '';
+    return 'mac@$mac';
   }
 
   @override
@@ -39,7 +42,7 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
     String memory = result.stdout.toString();
     List<String> memories = memory.split('\n');
     int total = int.parse(memories[0].split(':')[1].trim().split(' ')[0]);
-    return 'Memory@$total';
+    return 'memory@$total';
   }
 }
 
@@ -51,7 +54,7 @@ class MacMachineCodeStrategy implements MachineCodeStrategy {
       ['machdep.cpu.brand_string'],
     );
     String cpu = result.stdout.toString().split(': ')[1].trim();
-    return 'CPU@$cpu';
+    return 'cpu@$cpu';
   }
 
   @override
@@ -63,7 +66,7 @@ class MacMachineCodeStrategy implements MachineCodeStrategy {
     String disk = result.stdout.toString();
     String volumeUUID =
         RegExp(r'Volume UUID: (.+)').firstMatch(disk)?.group(1) ?? '';
-    return 'Volume UUID@$volumeUUID';
+    return 'volume uuid@$volumeUUID';
   }
 
   @override
@@ -75,7 +78,7 @@ class MacMachineCodeStrategy implements MachineCodeStrategy {
         .split('ether ')[1]
         .split(' ')[0]
         .trim();
-    return 'MAC@$mac';
+    return 'mac@$mac';
   }
 
   @override
@@ -85,7 +88,7 @@ class MacMachineCodeStrategy implements MachineCodeStrategy {
       ['-n', 'hw.memsize'],
     );
     String memory = result.stdout.toString().trim();
-    return 'Memory@$memory';
+    return 'memory@$memory';
   }
 }
 
@@ -94,7 +97,7 @@ class WindowsMachineCodeStrategy implements MachineCodeStrategy {
   String getCPUInfo() {
     ProcessResult result = Process.runSync('wmic', ['cpu', 'get', 'name']);
     String cpu = result.stdout.toString().trim().split('\n')[1].trim();
-    return 'CPU@$cpu';
+    return 'cpu@$cpu';
   }
 
   @override
@@ -104,7 +107,7 @@ class WindowsMachineCodeStrategy implements MachineCodeStrategy {
       ['diskdrive', 'get', 'serialnumber'],
     );
     String disk = result.stdout.toString().trim().split('\n')[1].trim();
-    return 'Volume UUID@$disk';
+    return 'volume uuid@$disk';
   }
 
   @override
@@ -112,7 +115,7 @@ class WindowsMachineCodeStrategy implements MachineCodeStrategy {
     ProcessResult result = Process.runSync('getmac', []);
     String mac =
         result.stdout.toString().trim().split('\n')[3].split(' ')[0].trim();
-    return 'MAC@$mac';
+    return 'mac@$mac';
   }
 
   @override
@@ -128,6 +131,6 @@ class WindowsMachineCodeStrategy implements MachineCodeStrategy {
     for (String m in memories) {
       sum += int.parse(m.trim());
     }
-    return 'Memory@$sum';
+    return 'memory@$sum';
   }
 }

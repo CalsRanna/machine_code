@@ -48,8 +48,10 @@ class MachineCode {
     return hashed;
   }
 
-  MacMachineCodeStrategy _implementStrategy() {
+  MachineCodeStrategy _implementStrategy() {
     switch (_os) {
+      case 'linux':
+        return LinuxMachineCodeStrategy();
       case 'macos':
         return MacMachineCodeStrategy();
       default:
