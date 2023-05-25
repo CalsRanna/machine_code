@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart' as crypto;
-import 'package:flutter/foundation.dart';
 import 'package:machine_code/src/machine_code_strategy.dart';
 
 class MachineCode {
@@ -9,7 +8,6 @@ class MachineCode {
     _os = Platform.operatingSystem;
     _strategy = _implementStrategy();
     _rawMachineCode = _generateMachineCode();
-    debugPrint(_rawMachineCode);
   }
 
   String? salt;
@@ -19,33 +17,22 @@ class MachineCode {
 
   /// Use **md5** algorithm to generate **32** bytes length machine code
   String get md5 {
-    final hashed = crypto.md5.convert(utf8.encode(_rawMachineCode)).toString();
-    debugPrint(hashed);
-    return hashed;
+    return crypto.md5.convert(utf8.encode(_rawMachineCode)).toString();
   }
 
   /// Use **sha256** algorithm to generate **64** bytes length machine code
   String get sha256 {
-    final hashed =
-        crypto.sha256.convert(utf8.encode(_rawMachineCode)).toString();
-    debugPrint(hashed);
-    return hashed;
+    return crypto.sha256.convert(utf8.encode(_rawMachineCode)).toString();
   }
 
   /// Use **sha384** algorithm to generate **128** bytes length machine code
   String get sha384 {
-    final hashed =
-        crypto.sha384.convert(utf8.encode(_rawMachineCode)).toString();
-    debugPrint(hashed);
-    return hashed;
+    return crypto.sha384.convert(utf8.encode(_rawMachineCode)).toString();
   }
 
   /// Use **sha512** algorithm to generate **256** bytes length machine code
   String get sha512 {
-    final machineCode = _generateMachineCode();
-    final hashed = crypto.sha512.convert(utf8.encode(machineCode)).toString();
-    debugPrint(hashed);
-    return hashed;
+    return crypto.sha512.convert(utf8.encode(_rawMachineCode)).toString();
   }
 
   MachineCodeStrategy _implementStrategy() {
