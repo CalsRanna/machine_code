@@ -27,9 +27,7 @@ class MacMachineCodeStrategy implements MachineCodeStrategy {
       ['SPStorageDataType'],
     );
     String disk = result.stdout.toString();
-    String volumeUUID =
-        RegExp(r'Volume UUID: (.+)').firstMatch(disk)?.group(1) ?? '';
-    return 'volume uuid@$volumeUUID';
+    return RegExp(r'Volume UUID: (.+)').firstMatch(disk)?.group(1) ?? '';
   }
 }
 
@@ -40,7 +38,6 @@ class WindowsMachineCodeStrategy implements MachineCodeStrategy {
       'wmic',
       ['diskdrive', 'get', 'serialnumber'],
     );
-    String disk = result.stdout.toString().trim().split('\n')[1].trim();
-    return 'volume uuid@$disk';
+    return result.stdout.toString().trim().split('\n')[1].trim();
   }
 }
