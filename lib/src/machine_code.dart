@@ -47,12 +47,8 @@ class MachineCode {
   }
 
   String _generateMachineCode() {
-    String os = Platform.operatingSystem;
-    String cpu = _strategy.getCPUInfo();
-    String disk = _strategy.getDiskSerialNumber();
-    String mac = _strategy.getMacAddress();
-    String memory = _strategy.getMemoryInfo();
-    final machineCode = ['os@$os', cpu, disk, mac, memory, 'salt@$salt']
+    String disk = _strategy.getDiskUUID();
+    final machineCode = ['DISK@$disk', 'SALT@$salt']
         .join('#')
         .replaceAll(' ', '_')
         .toUpperCase();

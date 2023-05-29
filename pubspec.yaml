@@ -1,6 +1,6 @@
 name: machine_code
-description: Generating machine codes of different lengths through a series of computer-assisted information.
-version: 0.0.1
+description: Generating machine codes of different lengths through hard drive's uuid and salt.
+version: 0.0.2
 homepage:
 repository: https://github.com/CalsRanna/machine_code
 

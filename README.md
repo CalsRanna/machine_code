@@ -1,6 +1,6 @@
 # Machine Code
 
-Generating machine codes of different lengths through a series of computer-assisted information.
+Generating machine codes of different lengths through hard drive's uuid and salt.
 
 ## Install
 
@@ -15,10 +15,10 @@ import 'package:machine_code/machine_code.dart';
 
 void main() {
   final code = MachineCode();
-  code.md5.length;
-  code.sha256.length;
-  code.sha384.length;
-  code.sha512.length;
+  print(code.md5);
+  print(code.sha256);
+  print(code.sha384);
+  print(code.sha512);
 }
 
 ```
