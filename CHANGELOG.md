@@ -1,3 +1,7 @@
+## 0.0.4
+
+- use upper case to return machine code
+
 ## 0.0.3
 
 - fix linux get hard drive's uuid

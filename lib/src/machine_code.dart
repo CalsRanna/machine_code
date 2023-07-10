@@ -16,17 +16,26 @@ class MachineCode {
 
   /// Use **md5** algorithm to generate **32** bytes length machine code
   String get md5 {
-    return crypto.md5.convert(utf8.encode(_rawMachineCode)).toString();
+    return crypto.md5
+        .convert(utf8.encode(_rawMachineCode))
+        .toString()
+        .toUpperCase();
   }
 
   /// Use **sha256** algorithm to generate **64** bytes length machine code
   String get sha256 {
-    return crypto.sha256.convert(utf8.encode(_rawMachineCode)).toString();
+    return crypto.sha256
+        .convert(utf8.encode(_rawMachineCode))
+        .toString()
+        .toUpperCase();
   }
 
   /// Use **sha384** algorithm to generate **128** bytes length machine code
   String get sha384 {
-    return crypto.sha384.convert(utf8.encode(_rawMachineCode)).toString();
+    return crypto.sha384
+        .convert(utf8.encode(_rawMachineCode))
+        .toString()
+        .toUpperCase();
   }
 
   /// Use **sha512** algorithm to generate **256** bytes length machine code
@@ -50,7 +59,6 @@ class MachineCode {
 
   String _generateMachineCode() {
     String disk = _strategy.getDiskUUID();
-    final machineCode = 'DISK@$disk'.toUpperCase();
-    return machineCode;
+    return 'DISK@$disk';
   }
 }

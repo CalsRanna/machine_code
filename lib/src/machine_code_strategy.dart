@@ -13,7 +13,6 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
         .split('UUID=')
         .last
         .replaceAll('"', '')
-        .toUpperCase()
         .trim();
   }
 }
