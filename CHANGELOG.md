@@ -1,3 +1,7 @@
+## 0.0.5
+
+- remove upper case cause linux return lower case
+
 ## 0.0.4
 
 - use upper case to return machine code

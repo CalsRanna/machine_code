@@ -1,6 +1,6 @@
 # Machine Code
 
-![Current Version](https://img.shields.io/badge/0.0.4-blue?style=flat-square&label=version)
+![Current Version](https://img.shields.io/badge/0.0.5-blue?style=flat-square&label=version)
 
 Generating machine codes of different lengths through hard drive's uuid and salt.
 
