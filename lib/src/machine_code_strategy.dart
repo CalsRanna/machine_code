@@ -7,10 +7,9 @@ abstract class MachineCodeStrategy {
 class LinuxMachineCodeStrategy implements MachineCodeStrategy {
   @override
   String getDiskUUID() {
-    ProcessResult result = Process.runSync('blkid', ['-s']);
-    final uuids = result.stdout.toString().split('\n');
-    uuids.sort((a, b) => a.compareTo(b));
-    return uuids.first
+    ProcessResult result = Process.runSync('blkid', ['-s', 'UUID']);
+    return result.stdout
+        .toString()
         .split('UUID=')
         .last
         .replaceAll('"', '')

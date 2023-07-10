@@ -4,13 +4,12 @@ import 'package:crypto/crypto.dart' as crypto;
 import 'package:machine_code/src/machine_code_strategy.dart';
 
 class MachineCode {
-  MachineCode({this.salt}) {
+  MachineCode() {
     _os = Platform.operatingSystem;
     _strategy = _implementStrategy();
     _rawMachineCode = _generateMachineCode();
   }
 
-  String? salt;
   late String _os;
   late String _rawMachineCode;
   late MachineCodeStrategy _strategy;
@@ -32,7 +31,10 @@ class MachineCode {
 
   /// Use **sha512** algorithm to generate **256** bytes length machine code
   String get sha512 {
-    return crypto.sha512.convert(utf8.encode(_rawMachineCode)).toString();
+    return crypto.sha512
+        .convert(utf8.encode(_rawMachineCode))
+        .toString()
+        .toUpperCase();
   }
 
   MachineCodeStrategy _implementStrategy() {
@@ -48,10 +50,7 @@ class MachineCode {
 
   String _generateMachineCode() {
     String disk = _strategy.getDiskUUID();
-    final machineCode = ['DISK@$disk', 'SALT@$salt']
-        .join('#')
-        .replaceAll(' ', '_')
-        .toUpperCase();
+    final machineCode = 'DISK@$disk'.toUpperCase();
     return machineCode;
   }
 }
