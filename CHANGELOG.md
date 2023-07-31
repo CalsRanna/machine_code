@@ -1,3 +1,7 @@
+## 0.0.6
+
+- use `blkid -n` to filter no need uuid
+
 ## 0.0.5
 
 - remove upper case cause linux return lower case
