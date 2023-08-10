@@ -9,14 +9,12 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
   String getDiskUUID() {
     ProcessResult result = Process.runSync(
       'bash',
-      ['-c', '''blkid | grep 'TYPE="ext4"' | grep '^/dev/nvme' '''],
+      [
+        '-c',
+        '''blkid | grep 'TYPE="ext4"' | grep '^/dev/nvme' | awk -F 'UUID="' '{print \$2}' | awk -F '"' '{print \$1}' '''
+      ],
     );
-    return result.stdout
-        .toString()
-        .split('UUID=')
-        .last
-        .replaceAll('"', '')
-        .trim();
+    return result.stdout;
   }
 }
 
