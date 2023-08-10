@@ -1,3 +1,7 @@
+## 0.0.7
+
+- use `blkid | grep 'TYPE="ext4"' | grep '^/dev/nvme'` to filter no need uuid
+
 ## 0.0.6
 
 - use `blkid -n` to filter no need uuid

@@ -8,8 +8,8 @@ class LinuxMachineCodeStrategy implements MachineCodeStrategy {
   @override
   String getDiskUUID() {
     ProcessResult result = Process.runSync(
-      'blkid',
-      ['-n', 'ext4', '-s', 'UUID'],
+      'bash',
+      ['-c', '''blkid | grep 'TYPE="ext4"' | grep '^/dev/nvme' '''],
     );
     return result.stdout
         .toString()
